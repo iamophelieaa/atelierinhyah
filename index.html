@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Inhyah — Architecture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --border: #eeeeee;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+            line-height: 1.8;
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        body.loaded { opacity: 1; }
+
+        /* --- CURSEUR ARCHITECTURAL --- */
+        #cursor {
+            width: 8px; height: 8px;
+            background: black;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s ease;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .logo img { height: 22px; width: auto; filter: grayscale(1); }
+
+        nav a {
+            text-decoration: none;
+            color: inherit;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-left: 40px;
+            opacity: 0.3;
+            transition: 0.5s;
+        }
+        nav a:hover { opacity: 1; }
+
+        /* --- SECTION MANIFESTO (ASYNTRIC) --- */
+        .intro {
+            padding: 250px 50px 150px 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+        }
+
+        .intro h2 {
+            grid-column: 2; /* Positionné à droite pour la créativité */
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 60px;
+        }
+
+        .details-box {
+            grid-column: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 800px;
+        }
+
+        .details-box p {
+            font-size: 14px;
+            font-weight: 300;
+            color: #666;
+            text-transform: none;
+        }
+
+        /* --- GALERIE HORIZONTALE IMMERSIVE --- */
+        .gallery-wrapper {
+            padding-bottom: 150px;
+        }
+
+        .horizontal-gallery {
+            display: flex;
+            overflow-x: auto;
+            padding-left: 50px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .horizontal-gallery::-webkit-scrollbar { display: none; }
+
+        .project-card {
+            flex: 0 0 auto;
+            width: 80vw;
+            height: 85vh;
+            margin-right: 60px;
+            scroll-snap-align: center;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-color: #fafafa;
+            filter: saturate(0.8);
+            transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .project-card:hover .project-image {
+            filter: saturate(1.1);
+            transform: scale(0.98);
+        }
+
+        .project-meta {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            opacity: 0.4;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 100px 50px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0.3;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            header, .intro, footer { padding: 30px; }
+            .intro { grid-template-columns: 1fr; }
+            .intro h2, .details-box { grid-column: 1; }
+            .details-box { grid-template-columns: 1fr; gap: 30px; }
+            .horizontal-gallery { padding-left: 30px; }
+            .project-card { width: 90vw; margin-right: 20px; height: 60vh; }
+            nav { display: none; } /* Épure maximale sur mobile */
+        }
+    </style>
+</head>
+<body onload="document.body.classList.add('loaded')">
+
+    <div id="cursor"></div>
+
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Atelier Inhyah">
+        </div>
+        <nav>
+            <a href="#projets">Projets</a>
+            <a href="#agence">Agence</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="intro" id="agence">
+            <div></div>
+            <div>
+                <h2>Atelier Inhyah dessine le silence, la matière et la transmission. Une quête de justesse ancrée dans la terre rouge d'Afrique.</h2>
+                <div class="details-box">
+                    <p>De la Côte d'Ivoire aux horizons du continent, nous façonnons une architecture de l'essentiel. Nos projets refusent l'artifice pour ne garder que l'émotion pure de la lumière et du climat.</p>
+                    <p>Chaque ligne est une réponse sensible à un territoire. Construire ici, c’est comprendre l'origine pour révéler une modernité sobre, durable et profondément humaine.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="gallery-wrapper">
+            <section class="horizontal-gallery" id="projets">
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('projet1.jpg');"></div>
+                    <div class="project-meta"><span>Projet 01</span><span>Abidjan — CI</span></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('projet2.jpg');"></div>
+                    <div class="project-meta"><span>Projet 02</span><span>Grand-Bassam — CI</span></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('projet3.jpg');"></div>
+                    <div class="project-meta"><span>Projet 03</span><span>Assinie — CI</span></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('projet4.jpg');"></div>
+                    <div class="project-meta"><span>Projet 04</span><span>Dakar — SN</span></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('projet5.jpg');"></div>
+                    <div class="project-meta"><span>Projet 05</span><span>Libreville — GA</span></div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('projet6.jpg');"></div>
+                    <div class="project-meta"><span>Projet 06</span><span>Abidjan — CI</span></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <div>Atelier Inhyah © 2026</div>
+        <div>info@atelierinhyah.com</div>
+        <div>Abidjan / Afrique de l'Ouest</div>
+    </footer>
+
+    <script>
+        // Curseur Personnalisé
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Scroll horizontal à la molette
+        const scrollContainer = document.querySelector(".horizontal-gallery");
+        scrollContainer.addEventListener("wheel", (evt) => {
+            evt.preventDefault();
+            scrollContainer.scrollLeft += evt.deltaY * 2;
+        });
+    </script>
+</body>
+</html>
